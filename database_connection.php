@@ -1,5 +1,5 @@
 <?php
-	//database_connection.php
+		//database_connection.php
 	$base_url = 'http://localhost/PHP-PRACTICAL/school_fees_management_system/';
 	$connect = new PDO("mysql:host=localhost;dbname=sfms","root","");
 
@@ -29,8 +29,7 @@
 		return false;
 	}
 
-	function Generate_student_number($number)
-{
+	function Generate_student_number($number){
 	$output = '';
 	$rand = rand(1111,9999);
 	$number = $number + $rand;

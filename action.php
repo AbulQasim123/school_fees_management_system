@@ -254,9 +254,7 @@ if(isset($_POST['action']))
 	// Fetch Student
 	if($_POST['action'] == 'fetch_student')
 	{
-		$query = "
-		SELECT * FROM sfms_student 
-		";
+		$query = "SELECT * FROM sfms_student";
 
 		if(isset($_POST["search"]["value"]))
 		{

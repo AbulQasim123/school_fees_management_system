@@ -39,17 +39,11 @@
 
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <!-- <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div> -->
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+            </div>
         </form>
-
-        <!-- Navbar-->
-        <!-- <ul class="nav-item dropdown">
-            <li class="nav-item"><a class="nav-link" href="" ></a> </li>
-            <li class="nav-item"><a class="nav-link" href="" id="date"></a> </li>
-        </ul> -->
         <div class="navbar-nav">
             <a class="nav-link active" style="font-size: 25px; cursor: default;" id="clock" href="#">⏱</a>
             <a class="nav-link active" style="font-size: 25px; cursor: default;" id="time" href="#">Time</a>
@@ -78,16 +72,12 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <?php
-                        if (is_master_user()) {
-                        ?>
+                        <?php  if (is_master_user()) { ?>
                             <a class="nav-link" href="user.php">User</a>
                             <a class="nav-link" href="academic_year.php">Academic Year</a>
                             <a class="nav-link" href="academic_standard.php">Academic Standard</a>
                             <a class="nav-link" href="student.php">Student Master</a>
-                        <?php
-                        }
-                        ?>
+                        <?php } ?>
                         <a class="nav-link" href="logout.php">Logout</a>
                     </div>
                 </div>
@@ -98,52 +88,50 @@
         </div>
         <div id="layoutSidenav_content">
             <main>
+                <script type="text/javascript">
+                    // Creating a clock
+                    function Updateclock() {
+                        // Get the current date
+                        let current_time = new Date();
+                        // Extract Hour, Minutes and  Seconds form the date
+                        let current_hour = current_time.getHours();
+                        let current_minutes = current_time.getMinutes();
+                        let current_seconds = current_time.getSeconds();
 
-<script type="text/javascript">
-    
-    // Creating a clock
-    function Updateclock() {
-        // Get the current date
-        let current_time = new Date();
-        // Extract Hour, Minutes and  Seconds form the date
-        let current_hour = current_time.getHours();
-        let current_minutes = current_time.getMinutes();
-        let current_seconds = current_time.getSeconds();
+                        // Pad 0 if minutes and seconds is less than 10 (single digit)
+                        current_minutes = (current_minutes < 10 ? "0" : "") + current_minutes;
+                        current_seconds = (current_seconds < 10 ? "0" : "") + current_seconds;
 
-        // Pad 0 if minutes and seconds is less than 10 (single digit)
-        current_minutes = (current_minutes < 10 ? "0" : "") + current_minutes;
-        current_seconds = (current_seconds < 10 ? "0" : "") + current_seconds;
+                        // Convert Railways clock to AM/PM clock
+                        current_hour = (current_hour > 12) ? current_hour - 12 : current_hour;
+                        current_hour = (current_hour == 0) ? 12 : current_hour;
 
-        // Convert Railways clock to AM/PM clock
-        current_hour = (current_hour > 12) ? current_hour - 12 : current_hour;
-        current_hour = (current_hour == 0) ? 12 : current_hour;
+                        // Choose AM/PM as per the time of the day
+                        let timeofday = (current_hour > 12) ? "PM" : "AM";
 
-        // Choose AM/PM as per the time of the day
-        let timeofday = (current_hour > 12) ? "PM" : "AM";
+                        // Prepare the time string from hour, minutes and seconds
+                        let Completetime_string = current_hour + ":" + current_minutes + ":" + current_seconds + " " + timeofday;
 
-        // Prepare the time string from hour, minutes and seconds
-        let Completetime_string = current_hour + ":" + current_minutes + ":" + current_seconds + " " + timeofday;
+                        // Insert the time string inside the DOM
+                        document.getElementById('time').innerHTML = Completetime_string;
+                        /*
+                            We can pass one targeted id in multiple innerHTML like as ->
+                            document.getElementById('clock').innerHTML = (Completetime_string + "<br>" + Completedate_string);
+                        */
 
-        // Insert the time string inside the DOM
-        document.getElementById('time').innerHTML = Completetime_string;
-        /*
-            We can pass one targeted id in multiple innerHTML like as ->
-            document.getElementById('clock').innerHTML = (Completetime_string + "<br>" + Completedate_string);
-        */
+                        // Extract Day, Month and Year from the date
+                        let current_date = current_time.getDate();
+                        let current_month = current_time.getMonth();
+                        let curren_year = current_time.getFullYear();
 
-        // Extract Day, Month and Year from the date
-        let current_date = current_time.getDate();
-        let current_month = current_time.getMonth();
-        let curren_year = current_time.getFullYear();
+                        // Pad 0 if minutes and seconds is less than 10 (single digit)
+                        current_date = (current_date < 10 ? "0" : "") + current_date;
+                        current_month = (current_month < 10 ? +1 : "") + current_month;
 
-        // Pad 0 if minutes and seconds is less than 10 (single digit)
-        current_date = (current_date < 10 ? "0" : "") + current_date;
-        current_month = (current_month < 10 ? +1 : "") + current_month;
-
-        // current_month= (current_month == 1) ? +1 : current_month;
-        let Completedate_string = current_date + "-" + current_month + "-" + curren_year;
+                        // current_month= (current_month == 1) ? +1 : current_month;
+                        let Completedate_string = current_date + "-" + current_month + "-" + curren_year;
 
 
-        document.getElementById('date').innerHTML = Completedate_string;
-    };  // clsoe Updateclock function
-</script>
+                        document.getElementById('date').innerHTML = Completedate_string;
+                    }; // clsoe Updateclock function
+                </script>
